@@ -2,7 +2,7 @@
 
 - name: Modify the HiveConfig resource to enable the feature gate for Assisted Installer
   ansible.builtin.shell: |
-    oc patch hiveconfig hive \
+    {{ iog_oc_tool_path }} patch hiveconfig hive \
        --type merge \
        -p '{"spec":{"targetNamespace":"hive",
             "logLevel":"debug",
@@ -11,7 +11,7 @@
 
 - name: Modify the Provisioning resource to allow the Bare Metal Operator to watch all namespaces
   ansible.builtin.shell: |
-    oc patch provisioning provisioning-configuration \
+    {{ iog_oc_tool_path }} patch provisioning provisioning-configuration \
        --type merge -p '{"spec":{"watchAllNamespaces": true }}'
   when: metallb
 
